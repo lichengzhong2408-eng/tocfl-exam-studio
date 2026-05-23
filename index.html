@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TOCFL Exam Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --dark: #1f2937;
+  --light: #f9fafb;
+  --border: #e5e7eb;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { min-height: 100vh; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--info) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lang-selector {
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.lang-btn {
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+
+.lang-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.bands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.band-card {
+  position: relative;
+  border-radius: 16px;
+  padding: 32px 24px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: all 0.3s;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: inherit;
+}
+
+.band-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.band-card.band-a { background: linear-gradient(135deg, #f87171 0%, #fb7185 100%); }
+.band-card.band-b { background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%); }
+.band-card.band-c { background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%); }
+
+.band-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.band-desc {
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s;
+  background: white;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-small {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.question {
+  border-left: 4px solid var(--primary);
+  padding: 24px;
+  background: var(--light);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.q-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.q-stem {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.q-passage {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--text);
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.script-container {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.script-toggle {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+.script-toggle:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.script-text {
+  background: white;
+  color: var(--text);
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--primary);
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  align-items: flex-start;
+}
+
+.choice:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.choice.selected {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.choice input {
+  margin-top: 4px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.score-container {
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  color: white;
+  margin-bottom: 32px;
+}
+
+.score-num {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+
+.score-label {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.review-block {
+  border-left: 4px solid var(--border);
+  padding: 20px;
+  background: var(--light);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.review-block.correct { border-left-color: var(--success); }
+.review-block.wrong { border-left-color: var(--danger); }
+
+.verdict {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.verdict.correct { background: var(--success); color: white; }
+.verdict.wrong { background: var(--danger); color: white; }
+
+.explanation {
+  background: white;
+  padding: 12px;
+  margin-top: 12px;
+  border-left: 3px solid var(--primary);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.exam-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.exam-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.exam-card.easy { border-left: 4px solid var(--success); }
+.exam-card.medium { border-left: 4px solid var(--warning); }
+.exam-card.hard { border-left: 4px solid var(--danger); }
+
+.exam-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.exam-card p {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.difficulty-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficulty-badge.easy { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.difficulty-badge.medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.difficulty-badge.hard { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+.hidden { display: none !important; }
+
+.loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(99, 102, 241, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.score-details {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.score-details strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 16px; }
+  .band-card { min-height: 150px; }
+  .band-title { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">📝 TOCFL Studio</div>
+    <div class="lang-selector">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="vi">VI</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+  </div>
+
+  <!-- MAIN MENU -->
+  <div id="mainMenu" class="card">
+    <h1 id="mainTitle" style="margin: 0 0 24px; font-size: 28px; font-weight: 800;">TOCFL Exam Studio</h1>
+    <div class="bands-grid">
+      <button class="band-card band-a" data-action="new" style="border: none; cursor: pointer;">
+        <div>
+          <div class="band-title">📝</div>
+          <div class="band-desc" id="newExamDesc">New Exam</div>
+        </div>
+      </button>
+      <button class="band-card band-b" data-action="library" style="border: none; cursor: pointer;">
+        <div>
+          <div class="band-title">📚</div>
+          <div class="band-desc" id="libraryDesc">My Library</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- BAND SELECTOR -->
+  <div id="bandSelector" class="card hidden">
+    <h1 id="bandTitle" style="margin: 0 0 24px; font-size: 28px; font-weight: 800;">Select Your Band</h1>
+    <div class="bands-grid">
+      <button class="band-card band-a" data-band="A" style="border: none; cursor: pointer;">
+        <div>
+          <div class="band-title">A</div>
+          <div class="band-desc" id="bandADesc">入門基礎 · Beginner Level</div>
+        </div>
+      </button>
+      <button class="band-card band-b" data-band="B" style="border: none; cursor: pointer;">
+        <div>
+          <div class="band-title">B</div>
+          <div class="band-desc" id="bandBDesc">進階高階 · Intermediate Level</div>
+        </div>
+      </button>
+      <button class="band-card band-c" data-band="C" style="border: none; cursor: pointer;">
+        <div>
+          <div class="band-title">C</div>
+          <div class="band-desc" id="bandCDesc">流利精通 · Advanced Level</div>
+        </div>
+      </button>
+    </div>
+    <button class="btn btn-secondary" id="backBtn" style="margin-top: 16px;">← Back</button>
+  </div>
+
+  <!-- SETUP FORM -->
+  <div id="setupForm" class="card hidden">
+    <h1 id="setupTitle" style="margin: 0 0 24px; font-size: 28px; font-weight: 800;">Generate New Exam</h1>
+
+    <div class="form-group">
+      <label class="form-label" id="providerLabel">API Provider</label>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px;">
+        <button class="band-card band-a" data-provider="openai" style="padding: 16px; height: auto; min-height: 70px; border: none; cursor: pointer; font-size: 12px;">
+          <div style="font-weight: 700;">OpenAI<div style="font-size: 11px; font-weight: 400; margin-top: 4px;">GPT-5</div></div>
+        </button>
+        <button class="band-card band-b" data-provider="anthropic" style="padding: 16px; height: auto; min-height: 70px; border: none; cursor: pointer; font-size: 12px;">
+          <div style="font-weight: 700;">Anthropic<div style="font-size: 11px; font-weight: 400; margin-top: 4px;">Claude 4.6</div></div>
+        </button>
+        <button class="band-card band-c" data-provider="gemini" style="padding: 16px; height: auto; min-height: 70px; border: none; cursor: pointer; font-size: 12px;">
+          <div style="font-weight: 700;">Google<div style="font-size: 11px; font-weight: 400; margin-top: 4px;">Gemini 2.5</div></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" id="keyLabel">API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-... or your secret key" />
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label class="form-label" id="questionsLabel">Questions</label>
+        <select id="numQuestions">
+          <option value="5">5 per section</option>
+          <option value="10">10 per section</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="bandLabel">Band</label>
+        <select id="bandSelect">
+          <option value="A">Band A (Beginner)</option>
+          <option value="B" selected>Band B (Intermediate)</option>
+          <option value="C">Band C (Advanced)</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <button class="btn btn-primary" id="generateBtn" style="flex: 1;">
+        <span>✨</span>
+        <span id="generateText">Generate Exam</span>
+      </button>
+      <button class="btn btn-secondary" id="backBtn2">← Back</button>
+    </div>
+  </div>
+
+  <!-- LIBRARY -->
+  <div id="libraryPanel" class="card hidden">
+    <h1 id="libraryTitle" style="margin: 0 0 24px; font-size: 28px; font-weight: 800;">My Exam Library</h1>
+    
+    <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+      <button class="tab-btn active" data-lib-band="A">Band A</button>
+      <button class="tab-btn" data-lib-band="B">Band B</button>
+      <button class="tab-btn" data-lib-band="C">Band C</button>
+    </div>
+
+    <div id="libraryContent" class="library-grid"></div>
+    
+    <button class="btn btn-secondary" id="backLibraryBtn" style="margin-top: 24px;">← Back</button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingPanel" class="card hidden">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p id="loadingText" style="margin-top: 16px; color: var(--text-muted);">Generating your exam...</p>
+    </div>
+  </div>
+
+  <!-- EXAM -->
+  <div id="examPanel" class="card hidden">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <h1 id="examTitle" style="margin: 0; font-size: 28px; font-weight: 800;">TOCFL Exam</h1>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="reading" id="readingTab">Reading</button>
+      <button class="tab-btn" data-tab="listening" id="listeningTab">Listening</button>
+    </div>
+
+    <div id="readingSection"></div>
+    <div id="listeningSection" class="hidden"></div>
+
+    <button class="btn btn-primary btn-block" id="submitBtn">
+      <span>✓</span>
+      <span id="submitText">Submit & Review</span>
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsPanel" class="card hidden">
+    <div class="score-container" id="scoreDisplay"></div>
+    <div id="reviewContent"></div>
+    <button class="btn btn-primary btn-block" id="retryBtn">
+      <span>🔄</span>
+      <span id="retryText">Try Another</span>
+    </button>
+  </div>
+</div>
+
+<script>
+const i18n = {
+  en: {
+    mainTitle: 'TOCFL Exam Studio',
+    newExamDesc: 'New Exam',
+    libraryDesc: 'My Library',
+    bandTitle: 'Select Your Band',
+    bandADesc: '入門基礎 · Beginner Level',
+    bandBDesc: '進階高階 · Intermediate Level',
+    bandCDesc: '流利精通 · Advanced Level',
+    setupTitle: 'Generate New Exam',
+    providerLabel: 'API Provider',
+    keyLabel: 'API Key',
+    questionsLabel: 'Questions per Section',
+    bandLabel: 'Select Band',
+    generateText: 'Generate Exam',
+    readingTab: 'Reading',
+    listeningTab: 'Listening',
+    submitText: 'Submit & Review',
+    retryText: 'Try Another Exam',
+    loadingText: 'Generating your exam...',
+    libraryTitle: 'My Exam Library',
+  },
+  vi: {
+    mainTitle: 'TOCFL Exam Studio',
+    newExamDesc: 'Đề Thi Mới',
+    libraryDesc: 'Thư Viện',
+    bandTitle: 'Chọn Cấp Độ',
+    bandADesc: '初級 · Sơ Cấp',
+    bandBDesc: '中級 · Trung Cấp',
+    bandCDesc: '上級 · Cao Cấp',
+    setupTitle: 'Tạo Đề Thi Mới',
+    providerLabel: 'Nhà Cung Cấp API',
+    keyLabel: 'Khóa API',
+    questionsLabel: 'Số Câu Mỗi Phần',
+    bandLabel: 'Chọn Cấp Độ',
+    generateText: 'Tạo Đề Thi',
+    readingTab: 'Đọc Hiểu',
+    listeningTab: 'Nghe Hiểu',
+    submitText: 'Nộp Bài & Xem Lại',
+    retryText: 'Làm Đề Khác',
+    loadingText: 'Đang tạo đề...',
+    libraryTitle: 'Thư Viện Đề Thi',
+  },
+  zh: {
+    mainTitle: 'TOCFL Exam Studio',
+    newExamDesc: '新試題',
+    libraryDesc: '試題庫',
+    bandTitle: '選擇等級',
+    bandADesc: '入門基礎 · 初級',
+    bandBDesc: '進階高階 · 中級',
+    bandCDesc: '流利精通 · 高級',
+    setupTitle: '產生新試題',
+    providerLabel: 'API 提供商',
+    keyLabel: 'API 金鑰',
+    questionsLabel: '每部分題數',
+    bandLabel: '選擇等級',
+    generateText: '產生試題',
+    readingTab: '閱讀',
+    listeningTab: '聽力',
+    submitText: '交卷查看',
+    retryText: '再做一份',
+    loadingText: '正在產生試題...',
+    libraryTitle: '試題庫',
+  },
+};
+
+let currentLang = localStorage.getItem('tocfl-lang') || 'en';
+let currentLibBand = 'A';
+
+function updateUI() {
+  const t = i18n[currentLang];
+  document.getElementById('mainTitle').textContent = t.mainTitle;
+  document.getElementById('newExamDesc').textContent = t.newExamDesc;
+  document.getElementById('libraryDesc').textContent = t.libraryDesc;
+  document.getElementById('bandTitle').textContent = t.bandTitle;
+  document.getElementById('bandADesc').textContent = t.bandADesc;
+  document.getElementById('bandBDesc').textContent = t.bandBDesc;
+  document.getElementById('bandCDesc').textContent = t.bandCDesc;
+  document.getElementById('setupTitle').textContent = t.setupTitle;
+  document.getElementById('providerLabel').textContent = t.providerLabel;
+  document.getElementById('keyLabel').textContent = t.keyLabel;
+  document.getElementById('questionsLabel').textContent = t.questionsLabel;
+  document.getElementById('bandLabel').textContent = t.bandLabel;
+  document.getElementById('generateText').textContent = t.generateText;
+  document.getElementById('readingTab').textContent = t.readingTab;
+  document.getElementById('listeningTab').textContent = t.listeningTab;
+  document.getElementById('submitText').textContent = t.submitText;
+  document.getElementById('retryText').textContent = t.retryText;
+  document.getElementById('loadingText').textContent = t.loadingText;
+  document.getElementById('libraryTitle').textContent = t.libraryTitle;
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('tocfl-lang', currentLang);
+    updateUI();
+  });
+});
+
+const state = {
+  provider: 'openai',
+  band: 'B',
+  apiKey: '',
+  exam: null,
+  examId: null,
+  answers: {},
+};
+
+// Main menu
+document.querySelectorAll('[data-action]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const action = btn.dataset.action;
+    if (action === 'new') {
+      showPanel('bandSelector');
+    } else if (action === 'library') {
+      renderLibrary('A');
+      showPanel('libraryPanel');
+    }
+  });
+});
+
+// Band selection
+document.querySelectorAll('[data-band]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.band = btn.dataset.band;
+    document.getElementById('bandSelect').value = state.band;
+    showPanel('setupForm');
+  });
+});
+
+document.getElementById('bandSelect').addEventListener('change', (e) => {
+  state.band = e.target.value;
+});
+
+// Provider selection
+document.querySelectorAll('[data-provider]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-provider]').forEach(b => b.style.opacity = '0.6');
+    btn.style.opacity = '1';
+    state.provider = btn.dataset.provider;
+  });
+});
+document.querySelector('[data-provider="openai"]').style.opacity = '1';
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    if (!tab) return;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('readingSection').classList.toggle('hidden', tab !== 'reading');
+    document.getElementById('listeningSection').classList.toggle('hidden', tab !== 'listening');
+  });
+});
+
+// Library band tabs
+document.querySelectorAll('[data-lib-band]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-lib-band]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLibBand = btn.dataset.libBand;
+    renderLibrary(currentLibBand);
+  });
+});
+
+// Back buttons
+document.querySelectorAll('[id$="BackBtn"], [id$="BackBtn2"]').forEach(btn => {
+  btn.addEventListener('click', () => showPanel('mainMenu'));
+});
+document.getElementById('backLibraryBtn').addEventListener('click', () => showPanel('mainMenu'));
+
+function showPanel(panel) {
+  ['mainMenu', 'bandSelector', 'setupForm', 'loadingPanel', 'examPanel', 'resultsPanel', 'libraryPanel'].forEach(p => {
+    document.getElementById(p).classList.add('hidden');
+  });
+  document.getElementById(panel).classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function genExamId() {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).substr(2, 5)}`;
+}
+
+function renderQuestion(q, idx, prefix) {
+  const wrap = document.createElement('div');
+  wrap.className = 'question';
+  const key = `${prefix}-${idx}`;
+
+  let html = `<div class="q-num">Q ${idx + 1}</div>`;
+  if (q.passage) html += `<div class="q-passage">${q.passage}</div>`;
+  html += `<div class="q-stem">${q.question}</div><div class="choices">`;
+
+  ['A', 'B', 'C', 'D'].forEach(letter => {
+    html += `
+      <label class="choice" data-key="${key}" data-letter="${letter}">
+        <input type="radio" name="${key}" value="${letter}" />
+        <span><strong>${letter}.</strong> ${q.choices[letter]}</span>
+      </label>
+    `;
+  });
+  html += '</div>';
+  wrap.innerHTML = html;
+
+  wrap.querySelectorAll('.choice').forEach(choice => {
+    choice.addEventListener('click', () => {
+      state.answers[key] = choice.dataset.letter;
+      wrap.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+      choice.classList.add('selected');
+    });
+  });
+
+  return wrap;
+}
+
+function renderListeningQuestion(q, idx) {
+  const wrap = document.createElement('div');
+  wrap.className = 'question';
+  const key = `l-${idx}`;
+
+  let html = `
+    <div class="q-num">Q ${idx + 1}</div>
+    <div class="script-container">
+      <button class="script-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('hidden');">
+        ▶ Show Script
+      </button>
+      <button class="script-toggle" style="flex: 1; background: rgba(255,255,255,0.2); text-align: left;" onclick="speakChinese(\`${q.script.replace(/`/g, '\\`')}\`);">
+        🔊 Play Audio
+      </button>
+    </div>
+    <div class="script-text hidden">${q.script}</div>
+  `;
+
+  html += `<div class="q-stem">${q.question}</div><div class="choices">`;
+
+  ['A', 'B', 'C', 'D'].forEach(letter => {
+    html += `
+      <label class="choice" data-key="${key}" data-letter="${letter}">
+        <input type="radio" name="${key}" value="${letter}" />
+        <span><strong>${letter}.</strong> ${q.choices[letter]}</span>
+      </label>
+    `;
+  });
+  html += '</div>';
+  wrap.innerHTML = html;
+
+  wrap.querySelectorAll('.choice').forEach(choice => {
+    choice.addEventListener('click', () => {
+      state.answers[key] = choice.dataset.letter;
+      wrap.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+      choice.classList.add('selected');
+    });
+  });
+
+  return wrap;
+}
+
+function speakChinese(text) {
+  if (!('speechSynthesis' in window)) {
+    alert('Your browser does not support text-to-speech');
+    return;
+  }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-TW';
+  window.speechSynthesis.speak(u);
+}
+
+async function callOpenAI(prompt, key) {
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+    body: JSON.stringify({
+      model: 'gpt-5-mini',
+      messages: [{ role: 'user', content: prompt }],
+      response_format: { type: 'json_object' },
+      max_completion_tokens: 8000,
+    }),
+  });
+  if (!res.ok) throw new Error(`OpenAI ${res.status}`);
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+async function callAnthropic(prompt, key) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 8000,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+  if (!res.ok) throw new Error(`Anthropic ${res.status}`);
+  const data = await res.json();
+  return data.content.map(b => b.text).join('');
+}
+
+async function callGemini(prompt, key) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { responseMimeType: 'application/json', temperature: 0.7 },
+    }),
+  });
+  if (!res.ok) throw new Error(`Gemini ${res.status}`);
+  const data = await res.json();
+  return data.candidates[0].content.parts.map(p => p.text).join('');
+}
+
+function extractJSON(raw) {
+  let s = raw.trim();
+  s = s.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '');
+  try { return JSON.parse(s); } catch {}
+  const first = s.indexOf('{');
+  const last = s.lastIndexOf('}');
+  if (first >= 0 && last > first) {
+    const sub = s.slice(first, last + 1);
+    try { return JSON.parse(sub); } catch (e) {
+      throw new Error('Could not parse JSON');
+    }
+  }
+  throw new Error('No JSON found');
+}
+
+const levelGuide = {
+  'A': { name: '入門基礎級', nameEn: 'Beginner' },
+  'B': { name: '進階高階級', nameEn: 'Intermediate' },
+  'C': { name: '流利精通級', nameEn: 'Advanced' },
+};
+
+function buildPrompt() {
+  const g = levelGuide[state.band];
+  const n = parseInt(document.getElementById('numQuestions').value);
+  return `You are a TOCFL exam writer. Generate ${n} reading questions and ${n} listening questions for TOCFL Band ${state.band} (${g.nameEn}). 
+
+Each question should have: a passage/script, a question stem, 4 choices (A/B/C/D), correct answer, and explanation in Vietnamese.
+
+Return ONLY valid JSON:
+{
+  "reading": [{"passage":"...", "question":"...", "choices":{"A":"...", "B":"...", "C":"...", "D":"..."}, "answer":"B", "explanation":"..."}],
+  "listening": [{"script":"...", "question":"...", "choices":{"A":"...", "B":"...", "C":"...", "D":"..."}, "answer":"C", "explanation":"..."}]
+}`;
+}
+
+document.getElementById('generateBtn').addEventListener('click', async () => {
+  state.apiKey = document.getElementById('apiKey').value.trim();
+  if (!state.apiKey) {
+    alert('Please enter API key');
+    return;
+  }
+
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  showPanel('loadingPanel');
+
+  try {
+    const prompt = buildPrompt();
+    let raw;
+    if (state.provider === 'openai') {
+      raw = await callOpenAI(prompt, state.apiKey);
+    } else if (state.provider === 'anthropic') {
+      raw = await callAnthropic(prompt, state.apiKey);
+    } else {
+      raw = await callGemini(prompt, state.apiKey);
+    }
+    state.exam = extractJSON(raw);
+    state.examId = genExamId();
+    state.answers = {};
+
+    // Save to library
+    await libSaveExam(state.examId, state.exam, state.band, state.provider);
+
+    const rSection = document.getElementById('readingSection');
+    rSection.innerHTML = '';
+    state.exam.reading.forEach((q, i) => {
+      rSection.appendChild(renderQuestion(q, i, 'r'));
+    });
+
+    const lSection = document.getElementById('listeningSection');
+    lSection.innerHTML = '';
+    state.exam.listening.forEach((q, i) => {
+      lSection.appendChild(renderListeningQuestion(q, i));
+    });
+
+    document.getElementById('examTitle').textContent = `TOCFL ${state.band} - ${levelGuide[state.band].name}`;
+    showPanel('examPanel');
+  } catch (e) {
+    alert('Error: ' + e.message);
+    showPanel('setupForm');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// LIBRARY STORAGE
+async function libSaveExam(examId, exam, band, provider) {
+  try {
+    const key = `tocfl:exam:${examId}`;
+    const record = { id: examId, exam, band, provider, createdAt: new Date().toISOString(), stats: { attempts: 0, correctTotal: 0, totalQuestions: exam.reading.length + exam.listening.length, perQ: {} } };
+    await window.storage.set(key, JSON.stringify(record), true);
+
+    const indexKey = `tocfl:library:${band}`;
+    const indexRaw = await window.storage.get(indexKey, true).catch(() => null);
+    let index = indexRaw ? JSON.parse(indexRaw.value) : [];
+    index = [examId, ...index].slice(0, 100);
+    await window.storage.set(indexKey, JSON.stringify(index), true);
+  } catch (e) {
+    console.warn('Library save failed:', e);
+  }
+}
+
+async function libGetExam(examId) {
+  try {
+    const key = `tocfl:exam:${examId}`;
+    const result = await window.storage.get(key, true);
+    return result ? JSON.parse(result.value) : null;
+  } catch (e) {
+    console.warn('Get exam failed:', e);
+    return null;
+  }
+}
+
+async function libGetExams(band) {
+  try {
+    const indexKey = `tocfl:library:${band}`;
+    const indexRaw = await window.storage.get(indexKey, true).catch(() => null);
+    if (!indexRaw) return [];
+    const ids = JSON.parse(indexRaw.value);
+    const exams = [];
+    for (const id of ids) {
+      const exam = await libGetExam(id);
+      if (exam) exams.push(exam);
+    }
+    return exams;
+  } catch (e) {
+    console.warn('Get exams failed:', e);
+    return [];
+  }
+}
+
+async function libRecordAttempt(examId, answers, exam) {
+  try {
+    const record = await libGetExam(examId);
+    if (!record) return;
+
+    let correct = 0;
+    [...exam.reading, ...exam.listening].forEach((q, i) => {
+      const prefix = i < exam.reading.length ? 'r' : 'l';
+      const idx = i < exam.reading.length ? i : i - exam.reading.length;
+      const key = `${prefix}-${idx}`;
+      if (answers[key] === q.answer) correct++;
+
+      if (!record.stats.perQ[key]) record.stats.perQ[key] = { a: 0, c: 0 };
+      record.stats.perQ[key].a++;
+      if (answers[key] === q.answer) record.stats.perQ[key].c++;
+    });
+
+    record.stats.attempts++;
+    record.stats.correctTotal += correct;
+    await window.storage.set(`tocfl:exam:${examId}`, JSON.stringify(record), true);
+  } catch (e) {
+    console.warn('Record attempt failed:', e);
+  }
+}
+
+async function renderLibrary(band) {
+  const exams = await libGetExams(band);
+  const container = document.getElementById('libraryContent');
+  
+  if (exams.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No exams yet. Generate one!</div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  exams.forEach(rec => {
+    const pct = rec.stats.totalQuestions === 0 ? 0 : Math.round((rec.stats.correctTotal / (rec.stats.attempts * rec.stats.totalQuestions)) * 100) || 0;
+    let difficulty = pct >= 75 ? 'easy' : pct >= 45 ? 'medium' : 'hard';
+
+    const card = document.createElement('div');
+    card.className = `exam-card ${difficulty}`;
+    card.innerHTML = `
+      <h3>${rec.band} - ${new Date(rec.createdAt).toLocaleDateString()}</h3>
+      <p>${rec.provider} · ${rec.exam.reading.length}Q each</p>
+      <p style="margin: 8px 0 0;">${rec.stats.attempts} attempts</p>
+      <div style="margin-top: 12px;">
+        <span class="difficulty-badge ${difficulty}">${difficulty.toUpperCase()} ${pct}%</span>
+      </div>
+    `;
+    card.addEventListener('click', async () => {
+      state.exam = rec.exam;
+      state.examId = rec.id;
+      state.answers = {};
+
+      const rSection = document.getElementById('readingSection');
+      rSection.innerHTML = '';
+      state.exam.reading.forEach((q, i) => {
+        rSection.appendChild(renderQuestion(q, i, 'r'));
+      });
+
+      const lSection = document.getElementById('listeningSection');
+      lSection.innerHTML = '';
+      state.exam.listening.forEach((q, i) => {
+        lSection.appendChild(renderListeningQuestion(q, i));
+      });
+
+      document.getElementById('examTitle').textContent = `TOCFL ${state.band} - ${levelGuide[state.band].name}`;
+      showPanel('examPanel');
+    });
+    container.appendChild(card);
+  });
+}
+
+const levelCutoffs = {
+  A1: { totalScore: 120, minListeningPct: 0.64, minReadingPct: 0.66 },
+  A2: { totalScore: 135, minListeningPct: 0.70, minReadingPct: 0.72 },
+  B1: { totalScore: 180, minListeningPct: 0.68, minReadingPct: 0.70 },
+  B2: { totalScore: 240, minListeningPct: 0.78, minReadingPct: 0.80 },
+  C1: { totalScore: 300, minListeningPct: 0.82, minReadingPct: 0.84 },
+  C2: { totalScore: 400, minListeningPct: 0.90, minReadingPct: 0.92 },
+};
+
+function rawToSectionScore(correct, total) {
+  if (total === 0) return 0;
+  return Math.round((correct / total) * 80);
+}
+
+function detectLevel(listeningScore, readingScore, totalScore, band) {
+  const listeningPct = listeningScore / 80;
+  const readingPct = readingScore / 80;
+  const bandLevels = { 'A': ['A1', 'A2'], 'B': ['B1', 'B2'], 'C': ['C1', 'C2'] };
+  const levels = bandLevels[band] || ['B1', 'B2'];
+
+  for (let i = levels.length - 1; i >= 0; i--) {
+    const levelKey = levels[i];
+    const cutoff = levelCutoffs[levelKey];
+    if (!cutoff) continue;
+
+    const passTotal = totalScore >= cutoff.totalScore;
+    const passListening = listeningPct >= cutoff.minListeningPct;
+    const passReading = readingPct >= cutoff.minReadingPct;
+
+    if (passTotal && passListening && passReading) {
+      return {
+        level: levelKey,
+        passed: true,
+        totalScore,
+        listeningScore,
+        readingScore,
+        listeningPct: Math.round(listeningPct * 100),
+        readingPct: Math.round(readingPct * 100),
+      };
+    }
+  }
+
+  return {
+    level: null,
+    passed: false,
+    totalScore,
+    listeningScore,
+    readingScore,
+    listeningPct: Math.round(listeningPct * 100),
+    readingPct: Math.round(readingPct * 100),
+  };
+}
+
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  let readingCorrect = 0, listeningCorrect = 0;
+  state.exam.reading.forEach((q, i) => {
+    if (state.answers[`r-${i}`] === q.answer) readingCorrect++;
+  });
+  state.exam.listening.forEach((q, i) => {
+    if (state.answers[`l-${i}`] === q.answer) listeningCorrect++;
+  });
+
+  const readingScore = rawToSectionScore(readingCorrect, state.exam.reading.length);
+  const listeningScore = rawToSectionScore(listeningCorrect, state.exam.listening.length);
+  const totalScore = readingScore + listeningScore;
+
+  const result = detectLevel(listeningScore, readingScore, totalScore, state.band);
+
+  if (state.examId) {
+    await libRecordAttempt(state.examId, state.answers, state.exam);
+  }
+
+  document.getElementById('scoreDisplay').innerHTML = `
+    <div class="score-num">${result.passed ? result.level : 'INCOMPLETE'}</div>
+    <div class="score-details">
+      Reading: ${result.readingScore}/80 (${result.readingPct}%)<br/>
+      Listening: ${result.listeningScore}/80 (${result.listeningPct}%)<br/>
+      Total: ${result.totalScore}/160
+      ${result.passed ? '<br/><strong style="color: #10b981;">✓ Level Achieved!</strong>' : '<br/><strong style="color: #ef4444;">Below Threshold</strong>'}
+    </div>
+  `;
+
+  const reviewEl = document.getElementById('reviewContent');
+  reviewEl.innerHTML = '';
+
+  const rHeader = document.createElement('h2');
+  rHeader.style.cssText = 'margin: 32px 0 16px; font-size: 20px; font-weight: 700;';
+  rHeader.textContent = 'Reading Review';
+  reviewEl.appendChild(rHeader);
+
+  state.exam.reading.forEach((q, i) => {
+    const key = `r-${i}`;
+    const userAns = state.answers[key] || '—';
+    const isCorrect = userAns === q.answer;
+
+    const block = document.createElement('div');
+    block.className = `review-block ${isCorrect ? 'correct' : 'wrong'}`;
+    block.innerHTML = `
+      <span class="verdict ${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</span>
+      <div style="margin: 8px 0; font-size: 14px; white-space: pre-wrap;"><strong>Passage:</strong> ${q.passage}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Question:</strong> ${q.question}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Your answer:</strong> ${userAns}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Correct:</strong> ${q.answer}</div>
+      ${q.explanation ? `<div class="explanation">Giải thích: ${q.explanation}</div>` : ''}
+    `;
+    reviewEl.appendChild(block);
+  });
+
+  const lHeader = document.createElement('h2');
+  lHeader.style.cssText = 'margin: 32px 0 16px; font-size: 20px; font-weight: 700;';
+  lHeader.textContent = 'Listening Review';
+  reviewEl.appendChild(lHeader);
+
+  state.exam.listening.forEach((q, i) => {
+    const key = `l-${i}`;
+    const userAns = state.answers[key] || '—';
+    const isCorrect = userAns === q.answer;
+
+    const block = document.createElement('div');
+    block.className = `review-block ${isCorrect ? 'correct' : 'wrong'}`;
+    block.innerHTML = `
+      <span class="verdict ${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</span>
+      <div style="margin: 8px 0; font-size: 12px; background: white; padding: 8px; border-radius: 6px; border-left: 3px solid var(--primary); white-space: pre-wrap;"><strong>Script:</strong> ${q.script}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Question:</strong> ${q.question}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Your answer:</strong> ${userAns}</div>
+      <div style="margin: 8px 0; font-size: 14px;"><strong>Correct:</strong> ${q.answer}</div>
+      ${q.explanation ? `<div class="explanation">Giải thích: ${q.explanation}</div>` : ''}
+    `;
+    reviewEl.appendChild(block);
+  });
+
+  showPanel('resultsPanel');
+});
+
+document.getElementById('retryBtn').addEventListener('click', () => {
+  state.exam = null;
+  state.answers = {};
+  state.examId = null;
+  showPanel('mainMenu');
+});
+
+updateUI();
+showPanel('mainMenu');
+</script>
+</body>
+</html>
